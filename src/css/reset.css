@@ -25,10 +25,29 @@ a {
 
 button {
   cursor: pointer;
+  border: none;
+  padding: 0;
+  font-style: inherit;
 }
 
 img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+/* Забираємо хрестик у браузерах на основі Webkit (Chrome, Safari) */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Забираємо хрестик у браузерах на основі Firefox */
+input[type="search"]::-moz-search-cancel-button {
+  display: none;
+}
+
+/* Додатково прибираємо для інших браузерів */
+input[type="search"] {
+  -webkit-appearance: textfield;
 }
