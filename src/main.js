@@ -16,7 +16,7 @@ const gallery = document.querySelector('.gallery');
 const loadButton = document.querySelector('.btn-load');
 
 let userRequest = '';
-let page = 0;
+let page = 30;
 let per_page = 15;
 
 form.addEventListener('submit', onBtnSubmit);
@@ -24,7 +24,7 @@ loadButton.addEventListener('click', onBtnClick);
 
 function onBtnSubmit(event) {
   event.preventDefault();
-  page = 1;
+  page = 30;
 
   gallery.innerHTML = '';
   loadButton.classList.add('visually-hidden');
@@ -33,7 +33,8 @@ function onBtnSubmit(event) {
   userRequest = event.currentTarget.elements.search.value.trim();
 
   if (userRequest === '') {
-    iziToast.error({
+    loader.classList.add('visually-hidden');
+    return iziToast.error({
       message: 'Please fill out the search form!',
       messageColor: '#FAFAFB',
       backgroundColor: '#EF4040',
@@ -73,15 +74,16 @@ async function uploadMoreItems() {
     }
 
     gallery.insertAdjacentHTML('beforeend', makeMarkup(data.hits));
-    page += 1;
 
-    if (page >= Math.ceil(data.totalHits / per_page)) {
+    if ((page >= Math.ceil(data.totalHits / per_page) && !!data.hits.length)) {
       loadButton.classList.add('visually-hidden');
       iziToast.info({
-        message: "We're sorry, but you've reached the end of search results.",
+        message: 'We\'re sorry, but you\'ve reached the end of search results.',
         position: 'topRight',
       });
     }
+
+    page += 1;
 
     let onPictureClick = new SimpleLightbox('.imgblock a', {
       captions: true,
