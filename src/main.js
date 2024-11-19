@@ -16,7 +16,7 @@ const gallery = document.querySelector('.gallery');
 const loadButton = document.querySelector('.btn-load');
 
 let userRequest = '';
-let page = 30;
+let page = 0;
 let per_page = 15;
 
 form.addEventListener('submit', onBtnSubmit);
@@ -24,7 +24,7 @@ loadButton.addEventListener('click', onBtnClick);
 
 function onBtnSubmit(event) {
   event.preventDefault();
-  page = 30;
+  page = 1;
 
   gallery.innerHTML = '';
   loadButton.classList.add('visually-hidden');
